@@ -1,29 +1,97 @@
 #!/bin/bash
 
-# Number of folders to check
-num_folders=20
+# Epsium Script
+# Copyright (c) 2023 Epsium-MegaCorp
+# Licensed under the MIT License
+# Website: https://epsium-invest.com/
 
-# Create a file to store the copied information
-output_file="copy.txt"
-echo "" > "$output_file"
+folderprefix='.epsium_'
+prefix='.epsium_'
+directory_seperator='/'
+github_release_url='https://github.com/Epsium-MegaCorp/Epsium-MegaCorp/releases/download/1.2.0.1/linux-server.zip'
 
-# Loop to copy the desired lines from the epsium.conf files
-for ((i=1; i<=num_folders; i++)); do
-    folder_name=".epsium_$i"
-    conf_file_path="$folder_name/epsium.conf"
+# Find the number of folders with the desired prefix, including ".epsium" without a number
+folder_count=$(ls -d ${folderprefix}* | wc -l)
 
-    if [ -f "$conf_file_path" ]; then
-        externalip_line=$(grep "externalip=" "$conf_file_path")
-        masternodeprivkey_line=$(grep "masternodeprivkey=" "$conf_file_path")
+if [ -d ".epsium" ]; then
+    folder_count=$((folder_count + 1))
+fi
 
-        # Copy lines to the output file
-        echo "$externalip_line" >> "$output_file"
-        echo "$masternodeprivkey_line" >> "$output_file"
+if [ $folder_count -eq 0 ]; then
+    echo "No matching folders found."
+    exit 1
+fi
 
-        echo "Folder '$folder_name': Lines copied."
+# Step 1: Stop all Epsium instances
+for ((servernumber = 1; servernumber <= $folder_count; servernumber++)); do
+    if [ $servernumber -eq 1 ]; then
+        folder_name=".epsium"  # Handle the folder without a number
     else
-        echo "Folder '$folder_name': epsium.conf not found."
+        folder_name="${prefix}${servernumber}"  # Handle folders with numbers
+    fi
+    
+    # Your code here for stopping each folder
+    echo "Stopping folder $folder_name"
+    
+    # Execute the stop command
+    ./epsium-cli -datadir="/root/${folder_name}" -config="/root/${folder_name}/epsium.conf" stop
+    
+    # Check if the command was successful (0 means success)
+    if [ $? -eq 0 ]; then
+        echo "Folder $folder_name stopped successfully."
+    else
+        echo "Error stopping folder $folder_name."
     fi
 done
 
-echo "Copied lines have been saved in '$output_file'."
+# Step 2: Wait for a brief moment
+sleep 10
+
+# Step 3: Remove specified files after stopping and starting
+echo "Removing files: linux-server.zip, epsiumd, epsium-cli, epsium-tx"
+rm -f linux-server.zip epsiumd epsium-cli epsium-tx
+
+echo "Files removed."
+
+# Step 4: Download the latest version from GitHub
+echo "Downloading the latest version from GitHub"
+wget "$github_release_url" -O linux-server.zip
+
+if [ $? -eq 0 ]; then
+    echo "Download successful."
+else
+    echo "Error downloading the latest version from GitHub."
+    exit 1
+fi
+
+# Step 5: Extract the downloaded file to the root directory
+echo "Extracting linux-server.zip to the root directory"
+unzip -q linux-server.zip -d /
+
+if [ $? -eq 0 ]; then
+    echo "Extraction successful."
+else
+    echo "Error extracting linux-server.zip."
+    exit 1
+fi
+
+# Step 6: Give execute permissions to epsiumd, epsium-cli, and epsium-tx
+echo "Setting execute permissions for epsiumd, epsium-cli, and epsium-tx"
+chmod +x /epsiumd /epsium-cli /epsium-tx
+
+# Step 7: Start all Epsium instances
+for ((servernumber = 1; servernumber <= $folder_count; servernumber++)); do
+    if [ $servernumber -eq 1 ]; then
+        folder_name=".epsium"  # Handle the folder without a number
+    else
+        folder_name="${prefix}${servernumber}"  # Handle folders with numbers
+    fi
+    
+    # Your code here for starting each folder
+    echo "Starting folder $folder_name"
+    
+    # Start the folder
+    /epsiumd -datadir="/root/${folder_name}" -config="/root/${folder_name}/epsium.conf" &
+    
+    echo "Folder $folder_name started."
+done
