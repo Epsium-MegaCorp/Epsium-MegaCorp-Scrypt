@@ -52,11 +52,12 @@ echo "Removing files: linux-server.zip, epsiumd, epsium-cli, epsium-tx"
 rm -f linux-server.zip epsiumd epsium-cli epsium-tx
 
 echo "Files removed."
-
+rm -r linux-server.zip
 # Step 4: Download the latest version from GitHub
 echo "Downloading the latest version from GitHub"
 wget "$github_release_url" -O linux-server.zip
-
+unzip linux-server.zip
+chmod +x epsiumd epsium-cli epsium-tx
 if [ $? -eq 0 ]; then
     echo "Download successful."
 else
