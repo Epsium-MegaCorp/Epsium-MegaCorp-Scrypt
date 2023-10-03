@@ -52,9 +52,8 @@ for ((servernumber = 1; servernumber <= $folder_count; servernumber++)); do
             echo "False"
             ./epsium-cli -datadir="/root/$folder_name" -config="/root/$folder_name/epsium.conf" stop 
             cd /root/$folder_name
-            sudo rm -r chainstate blocks peers.dat blocks/blk00000.dat
-            sudo rm -r blocks
-			sudo rm -r blocks
+            sudo rm -rf chainstate blocks peers.dat blocks/blk00000.dat
+            sudo rm -rf blocks
             
             # Download and unzip bootstrap.zip
             wget https://github.com/Epsium-MegaCorp/Epsium-MegaCorp/releases/download/1.3.0.0/bootstrap.zip -P "/root/$folder_name"
