@@ -51,9 +51,10 @@ for ((servernumber = 1; servernumber <= $folder_count; servernumber++)); do
             echo "$servernumber"
             echo "False"
             ./epsium-cli -datadir="/root/$folder_name" -config="/root/$folder_name/epsium.conf" stop 
-            
-            # Remove chainstate, blocks, and peers.dat directories
-            rm -rf "/root/$folder_name/chainstate" "/root/$folder_name/blocks" "/root/$folder_name/peers.dat"
+            cd /root/$folder_name
+            sudo rm -r chainstate blocks peers.dat blocks/blk00000.dat
+            sudo rm -r blocks
+			sudo rm -r blocks
             
             # Download and unzip bootstrap.zip
             wget https://github.com/Epsium-MegaCorp/Epsium-MegaCorp/releases/download/1.3.0.0/bootstrap.zip -P "/root/$folder_name"
@@ -61,8 +62,29 @@ for ((servernumber = 1; servernumber <= $folder_count; servernumber++)); do
             
             # Remove bootstrap.zip
             rm -f "/root/$folder_name/bootstrap.zip"
-            
+            cd ..
+
+            # Start EPSIUM server
             ./epsiumd -datadir="/root/$folder_name" -config="/root/$folder_name/epsium.conf" &
+            
+            # Wait for the server to start
+            sleep 5
+            echo "Server started in folder $folder_name"
+            # Add nodes using ./epsium-cli after the server is started
+            ./epsium-cli -datadir="/root/$folder_name" -config="/root/$folder_name/epsium.conf" addnode "108.61.156.168" "onetry"
+            ./epsium-cli -datadir="/root/$folder_name" -config="/root/$folder_name/epsium.conf" addnode "139.84.232.251" "onetry"
+            ./epsium-cli -datadir="/root/$folder_name" -config="/root/$folder_name/epsium.conf" addnode "96.30.192.28" "onetry"
+            ./epsium-cli -datadir="/root/$folder_name" -config="/root/$folder_name/epsium.conf" addnode "70.34.220.252" "onetry"
+            ./epsium-cli -datadir="/root/$folder_name" -config="/root/$folder_name/epsium.conf" addnode "70.34.248.151" "onetry"
+            ./epsium-cli -datadir="/root/$folder_name" -config="/root/$folder_name/epsium.conf" addnode "139.84.134.204" "onetry"
+            ./epsium-cli -datadir="/root/$folder_name" -config="/root/$folder_name/epsium.conf" addnode "64.176.170.118" "onetry"
+            ./epsium-cli -datadir="/root/$folder_name" -config="/root/$folder_name/epsium.conf" addnode "136.244.108.18" "onetry"
+            ./epsium-cli -datadir="/root/$folder_name" -config="/root/$folder_name/epsium.conf" addnode "207.246.97.94" "onetry"
+            ./epsium-cli -datadir="/root/$folder_name" -config="/root/$folder_name/epsium.conf" addnode "64.176.37.42" "onetry"
+            ./epsium-cli -datadir="/root/$folder_name" -config="/root/$folder_name/epsium.conf" addnode "158.247.244.74" "onetry"
+            ./epsium-cli -datadir="/root/$folder_name" -config="/root/$folder_name/epsium.conf" addnode "108.61.169.247" "onetry"
+            ./epsium-cli -datadir="/root/$folder_name" -config="/root/$folder_name/epsium.conf" addnode "139.84.195.245" "onetry"
+            
             sleep 5
         fi
     else
