@@ -8,7 +8,7 @@
 folderprefix='.epsium_'
 prefix='.epsium_'
 directory_seperator='/'
-github_release_url='https://github.com/Epsium-MegaCorp/Epsium-MegaCorp/releases/download/1.2.0.1/linux-server.zip'
+github_release_url='https://github.com/Epsium-MegaCorp/Epsium-MegaCorp/releases/download/1.3.0.0/linux-server.zip'
 
 # Find the number of folders with the desired prefix, including ".epsium" without a number
 folder_count=$(ls -d ${folderprefix}* | wc -l)
@@ -52,11 +52,12 @@ echo "Removing files: linux-server.zip, epsiumd, epsium-cli, epsium-tx"
 rm -f linux-server.zip epsiumd epsium-cli epsium-tx
 
 echo "Files removed."
-
+rm -r linux-server.zip
 # Step 4: Download the latest version from GitHub
 echo "Downloading the latest version from GitHub"
 wget "$github_release_url" -O linux-server.zip
-
+unzip linux-server.zip
+chmod +x epsiumd epsium-cli epsium-tx
 if [ $? -eq 0 ]; then
     echo "Download successful."
 else
