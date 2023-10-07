@@ -12,8 +12,8 @@ directory_seperator='/'
 while true; do
     for servernumber in {1..13}
     do
-        blockCount=$(curl --silent 108.61.156.168:3001/api/getblockcount)
-        blockHash=$(curl --silent 108.61.156.168:3001/api/getblockhash?index=$blockCount)
+        blockCount=$(curl --silent https://explorer2.epsium-invest.com/api/getblockcount)
+        blockHash=$(curl --silent https://explorer2.epsium-invest.com/api/getblockhash?index=$blockCount)
         echo "$servernumber"
 ./epsium-cli -datadir=/root/.epsium_$servernumber -config=/root/.epsium_$servernumber/epsium.conf  addnode 96.30.192.28  onetry
 ./epsium-cli -datadir=/root/.epsium_$servernumber -config=/root/.epsium_$servernumber/epsium.conf  addnode 46.151.159.53:13726 onetry
@@ -45,10 +45,10 @@ sleep 2
             echo "falsch "
 
             ./epsium-cli -datadir=/root/.epsium_$servernumber -config=/root/.epsium_$servernumber/epsium.conf stop
-
+            cd .epsium_$servernumber
             rm -r chainstate blocks peers.dat blocks/blk00000.dat
             wget https://github.com/Epsium-MegaCorp/Epsium-MegaCorp/releases/download/1.3.0.0.0/bootstrap.zip
-            unzip bootstrap.zip
+            unzip -o  bootstrap.zip
             rm -r bootstrap.zip
             rm -r banlist.dat
             cd
