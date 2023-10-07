@@ -1,4 +1,10 @@
 #!/bin/bash
+
+# Epsium Script
+# Copyright (c) 2023 Epsium-MegaCorp
+# Licensed under the MIT License
+# Website: https://epsium-invest.com/
+
 folderprefix='.epsium_'
 prefix='.epsium_'
 directory_seperator='/'
