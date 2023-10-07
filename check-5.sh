@@ -49,9 +49,9 @@ sleep 2
             rm -r chainstate blocks peers.dat blocks/blk00000.dat
             wget https://github.com/Epsium-MegaCorp/Epsium-MegaCorp/releases/download/1.3.0.0.0/bootstrap.zip
             unzip bootstrap.zip
- rm -r bootstrap.zip
+            rm -r bootstrap.zip
             rm -r banlist.dat
-     cd ..
+            cd
             ./epsiumd -datadir=/root/.epsium_$servernumber -config=/root/.epsium_$servernumber/epsium.conf
             sleep 5
              ./epsium-cli -datadir=/root/.epsium_1 -config=/root/.epsium_1/epsium.conf addnode 96.30.192.28  onetry
