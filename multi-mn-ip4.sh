@@ -4,7 +4,7 @@
 # Copyright (c) 2023 Epsium-MegaCorp
 # Licensed under the MIT License
 # Website: https://epsium-invest.com/
-
+#ipv4
 # Initial values for rpcport and port
 initial_rpcport=4094
 initial_port=5094
@@ -28,9 +28,8 @@ for ((i=1; i<=num_folders; i++)); do
     rpcport=$((initial_rpcport + i))
     port=$((initial_port + i))
 
-    # Resolve the server's hostname to an IPv4 address
-    read -p "Enter the server hostname for $folder_name: " server_hostname
-    server_ipv4=$(host -t A "$server_hostname" | awk '{print $4}')
+    # Ask the user for the server's IPv4 address
+    read -p "Enter the IPv4 address for $folder_name: " server_ipv4
 
     # Get masternodeprivkey by running ./epsium-cli createmasternodekey
     masternodeprivkey=$(./epsium-cli createmasternodekey)
