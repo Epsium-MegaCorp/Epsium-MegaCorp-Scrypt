@@ -45,7 +45,7 @@ sleep 2
             echo "falsch "
 
             ./epsium-cli -datadir=/root/.epsium_$servernumber -config=/root/.epsium_$servernumber/epsium.conf stop
-         
+         ./epsiumd -datadir=/root/.epsium_$servernumber -config=/root/.epsium_$servernumber/epsium.conf
              ./epsium-cli -datadir=/root/.epsium_$servernumber -config=/root/.epsium_$servernumber/epsium.conf addnode 96.30.192.28  onetry
             sleep 2
             ./epsium-cli -datadir=/root/.epsium_$servernumber -config=/root/.epsium_$servernumber/epsium.conf addnode  96.30.192.28 onetry
