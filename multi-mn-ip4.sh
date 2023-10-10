@@ -38,7 +38,7 @@ for ((i=1; i<=num_folders; i++)); do
     # Create content for the epsium.conf file
     conf_content="rpcuser=$rpcuser
 rpcpassword=$rpcpassword
-rpcallowip=127.0.0.1,$server_ipv4
+rpcallowip=127.0.0.1
 listen=1
 server=1
 daemon=1
@@ -48,7 +48,7 @@ rpcport=$rpcport
 bind=$server_ipv4
 maxconnections=64
 masternode=1
-externalip=$server_ipv4:4049
+externalip=$server_ipv4:4094
 masternodeaddr=$server_ipv4:4094
 masternodeprivkey=$masternodeprivkey
 addnode=108.61.156.168
