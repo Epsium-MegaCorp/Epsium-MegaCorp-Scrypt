@@ -1,12 +1,10 @@
 #!/bin/bash
-
 # Starte eine Endlosschleife
 while true; do
     # Schleife von Server 1 bis 13
     for servernumber in {1..20}; do
         # Gib die aktuelle Servernummer aus
         echo "Servernummer: $servernumber"
-
         # Definiere das Datenverzeichnis und die Konfigurationsdatei für diesen Server
         data_dir="/root/.epsium_$servernumber"
         config_file="/root/.epsium_$servernumber/epsium.conf"
@@ -26,7 +24,6 @@ while true; do
 
         # Gib erneut die aktuelle Servernummer aus
         echo "Servernummer: $servernumber"
-
         # Warte 1 Sekunde, bevor zur nächsten Servernummer übergegangen wird
         sleep 1
     done
