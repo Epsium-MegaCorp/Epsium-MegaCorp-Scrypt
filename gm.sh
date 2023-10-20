@@ -26,8 +26,7 @@ while true; do
 
         # Gib erneut die aktuelle Servernummer aus
         echo "Servernummer: $servernumber"
-#./epsium-cli -datadir="$data_dir" -config="$config_file" stop
-#        ./epsiumd -datadir="$data_dir" -config="$config_file"
+
         # Warte 1 Sekunde, bevor zur nächsten Servernummer übergegangen wird
         sleep 1
     done
