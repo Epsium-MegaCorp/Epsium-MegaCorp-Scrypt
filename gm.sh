@@ -1,4 +1,11 @@
 #!/bin/bash
+#!/bin/bash
+
+# Epsium Script
+# Copyright (c) 2023 Epsium-MegaCorp
+# Licensed under the MIT License
+# Website: https://epsium-invest.com/
+
 # Starte eine Endlosschleife
 while true; do
     # Schleife von Server 1 bis 13
@@ -21,7 +28,7 @@ while true; do
 ./epsium-cli -datadir="$data_dir" -config="$config_file" addnode   66.42.58.77 onetry
 ./epsium-cli -datadir="$data_dir" -config="$config_file" addnode  95.217.105.244:4094 onetry
 ./epsium-cli -datadir="$data_dir" -config="$config_file" addnode  96.30.192.28 onetry
-
+./epsium-cli -datadir="$data_dir" -config="$config_file" addnode  96.30.192.28:4094 onetry
         # Gib erneut die aktuelle Servernummer aus
         echo "Servernummer: $servernumber"
         # Warte 1 Sekunde, bevor zur nächsten Servernummer übergegangen wird
