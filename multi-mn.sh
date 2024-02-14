@@ -10,7 +10,7 @@ initial_rpcport=4094
 initial_port=5094
 
 # Number of folders to create
-num_folders=20  # You can change the number as needed
+num_folders=4  # You can change the number as needed
 
 # Loop to create folders and add the epsium.conf file
 for ((i=1; i<=num_folders; i++)); do
@@ -50,7 +50,7 @@ masternode=1
 externalip=[$server_ipv6]:4094
 masternodeaddr=[$server_ipv6]:4094
 masternodeprivkey=$masternodeprivkey
-addnode=108.61.156.168
+addnode=64.176.82.244
 "
 
     # Save epsium.conf file in the folder
