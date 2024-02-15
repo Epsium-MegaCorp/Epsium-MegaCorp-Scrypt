@@ -33,8 +33,8 @@ for ((servernumber = 1; servernumber <= $folder_count; servernumber++)); do
     
     # Check if the folder exists
     if [ -d "/root/$folder_name" ]; then
-        blockCount=$(curl --silent https://explorer2.epsium-invest.com/api/getblockcount)
-        blockHash=$(curl --silent https://explorer2.epsium-invest.com/api/getblockhash?index=$blockCount)
+        blockCount=$(curl --silent https://explorer.epsium-megacorp.com//api/getblockcount)
+        blockHash=$(curl --silent https://explorer.epsium-megacorp.com//api/getblockhash?index=$blockCount)
 
         currentBlockCount=$(./epsium-cli -datadir="/root/$folder_name" -config="/root/$folder_name/epsium.conf" getblockcount)
         currentHash=$(./epsium-cli -datadir="/root/$folder_name" -config="/root/$folder_name/epsium.conf" getblockhash $currentBlockCount)
@@ -56,7 +56,7 @@ for ((servernumber = 1; servernumber <= $folder_count; servernumber++)); do
             sudo rm -rf blocks
             
             # Download and unzip bootstrap.zip
-            wget https://github.com/Epsium-MegaCorp/Epsium-MegaCorp/releases/download/1.3.0.0/bootstrap.zip -P "/root/$folder_name"
+            wget https://github.com/Epsium-MegaCorp/Epsium-MegaCorp/releases/download/2.2.0/bootstrap.zip -P "/root/$folder_name"
             unzip "/root/$folder_name/bootstrap.zip" -d "/root/$folder_name"
             
             # Remove bootstrap.zip
