@@ -7,7 +7,7 @@
 #ipv6
 # Initial values for rpcport and port
 initial_rpcport=4094
-initial_port=5094
+initial_port=5095
 
 # Number of folders to create
 num_folders=4  # You can change the number as needed
